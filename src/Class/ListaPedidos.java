@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
  */
 public class ListaPedidos {
     //Referencia al primer nodo de la lista
-    
+
     Nodo primerNodo;
 
     public ListaPedidos(Nodo primerNodo) {
@@ -22,12 +22,12 @@ public class ListaPedidos {
     ListaPedidos() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
     //Validar que la lista esté vacia
     public boolean estaVacia() {
         return primerNodo == null;
     }
-   
+
     //Metodo Elimiar pedido de la lista por su identificador
     public void eliminarPedido(int idPedido) {
         if (!estaVacia()) {
@@ -44,21 +44,46 @@ public class ListaPedidos {
             }
         }
     }
+
     //Metodo para saber el ultimo nodo
-    private Nodo obtenerUltimoNodo (){
-     Nodo actual = primerNodo;
-    while(actual.getSiguiente() !=null){
-    actual = actual.getSiguiente();
+    private Nodo obtenerUltimoNodo() {
+        Nodo actual = primerNodo;
+        while (actual.getSiguiente() != null) {
+            actual = actual.getSiguiente();
+        }
+        return actual;
     }
-   return actual;
-    }
-   
+
     //Mostrar lista de Pedidos
     public void mostrarPedidos() {
         JOptionPane.showMessageDialog(null, "=== Lista Pedidos === \n");
         Nodo actual = primerNodo;
         while (actual != null) {
             JOptionPane.showMessageDialog(null, actual.getPedido());
+            actual = actual.getSiguiente();
+        }
+    }
+
+    // Método para agregar un nuevo pedido a la lista
+    public void agregarPedido(Pedido pedido) {
+        Nodo nuevoNodo = new Nodo(pedido, null);
+        if (primerNodo == null) {
+            primerNodo = nuevoNodo;
+        } else {
+            Nodo ultimoNodo = obtenerUltimoNodo();
+            ultimoNodo.setSiguiente(nuevoNodo);
+        }
+    }
+
+    // Método para editar un pedido existente en la lista
+    public void editarPedido(int idPedido, int nuevaCantidad, String nuevaDireccionEnvio) {
+        Nodo actual = primerNodo;
+        while (actual != null) {
+            if (actual.getPedido().getId() == idPedido) {
+                actual.getPedido().setCantidad(nuevaCantidad);
+                actual.getPedido().setDireccionEnvio(nuevaDireccionEnvio);
+                break;
+            }
             actual = actual.getSiguiente();
         }
     }

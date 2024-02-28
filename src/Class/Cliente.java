@@ -9,6 +9,7 @@ package Class;
  * @author HENRYTO
  */
 public class Cliente {
+
     private String nombre;
     private String direccion;
     //Contructor
@@ -39,8 +40,5 @@ public class Cliente {
     public String toString() {
         return "Cliente{" + "nombre=" + nombre + ", direccion=" + direccion + '}';
     }
-    
-   
-      
-    
+
 }

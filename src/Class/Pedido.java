@@ -9,15 +9,15 @@ package Class;
  * @author HENRYTO
  */
 public class Pedido {
+
     // Atributos
     private int id;
     private Producto producto;
     private int cantidad;
     private String direccionEnvio;
     private Cliente cliente;
-    
-    // Constructor
 
+    // Constructor
     public Pedido(int id, Producto producto, int cantidad, String direccionEnvio, Cliente cliente) {
         this.id = id;
         this.producto = producto;
@@ -71,7 +71,6 @@ public class Pedido {
     public String toString() {
         return "Pedido{" + "id=" + id + ", producto=" + producto + ", cantidad=" + cantidad + ", direccionEnvio=" + direccionEnvio + ", cliente=" + cliente + '}';
     }
-    
-    
+
     
 }

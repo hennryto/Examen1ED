@@ -9,18 +9,19 @@ package Class;
  * @author HENRYTO
  */
 public class Producto {
+
     //Atributos
     private String nombre;
     private String descripcion;
     private double precio;
-     //constructor
+    //constructor
 
     public Producto(String nombre, String descripcion, double precio) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
     }
-     //Metodos getter y setter 
+    //Metodos getter y setter 
 
     public String getNombre() {
         return nombre;
@@ -50,6 +51,6 @@ public class Producto {
     public String toString() {
         return "Producto{" + "nombre=" + nombre + ", descripcion=" + descripcion + ", precio=" + precio + '}';
     }
-    
+
     
 }

@@ -9,16 +9,16 @@ package Class;
  * @author HENRYTO
  */
 public class Nodo {
+
     //Atributos 
     private Pedido pedido;
     private Nodo siguiente;
-    
-    //Constructor
 
+    //Constructor
     public Nodo(Pedido pedido, Nodo siguiente) {
         this.pedido = pedido;
         this.siguiente = null;
-        
+
     }
     //Metodos getter y setter
 
@@ -37,7 +37,6 @@ public class Nodo {
     public void setSiguiente(Nodo siguiente) {
         this.siguiente = siguiente;
     }
-    
-    
-    
+
+
 }
