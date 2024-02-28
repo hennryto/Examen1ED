@@ -15,13 +15,11 @@ public class ListaPedidos {
 
     Nodo primerNodo;
 
-    public ListaPedidos(Nodo primerNodo) {
+    public ListaPedidos() {
         this.primerNodo = null;
     }
 
-    ListaPedidos() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+   
 
     //Validar que la lista esté vacia
     public boolean estaVacia() {

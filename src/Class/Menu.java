@@ -45,8 +45,6 @@ public class Menu {
                 case 5:
                     JOptionPane.showMessageDialog(null, "Saliendo del programa. ¡Hasta luego!");
                     break;
-                default:
-                    JOptionPane.showMessageDialog(null, "Opción no válida. Por favor, elige una opción válida.");
             }
         } while (opcion != 5);
     }
