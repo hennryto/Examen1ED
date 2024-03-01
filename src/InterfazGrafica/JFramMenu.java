@@ -5,7 +5,9 @@
 package InterfazGrafica;
 
 import Class.*;
+import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,14 +18,38 @@ public class JFramMenu extends javax.swing.JFrame {
     /**
      * Creates new form JFramMenu
      */
-    
+     private ListaPedidos listaPedidos;
     public JFramMenu() {
         initComponents();
-        // Inicializa tu lista de pedidos
+        String[] columnas = {"ID", "Nombre Producto", "Cantidad", "Dirección Envío", "Nombre Cliente"};
 
-        
+// modelo de la tabla con los nombres de las columnas
+        DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
+
+// Asignacion modelo a la tabla
+        jTable1.setModel(modelo);
+
+        this.listaPedidos = new ListaPedidos();// Creamos una lista de pedidos vacía al iniciar el JFrame
+        cargarPedidos();// Cargamos los pedidos en la tabla al iniciar
     }
+   
+  private void cargarPedidos() {
+    DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        modelo.setRowCount(0); // Limpiamos la tabla
 
+        Nodo actual = listaPedidos.getPrimerNodo();
+        while (actual != null) {
+            Pedido pedido = actual.getPedido();
+            modelo.addRow(new Object[]{
+                pedido.getId(),
+                pedido.getProducto().getNombre(),
+                pedido.getCantidad(),
+                pedido.getDireccionEnvio(),
+                pedido.getCliente().getNombre()
+            });
+            actual = actual.getSiguiente();
+        }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,6 +66,7 @@ public class JFramMenu extends javax.swing.JFrame {
         refreshButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        lblTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,6 +78,11 @@ public class JFramMenu extends javax.swing.JFrame {
         });
 
         editButton.setText("Editar");
+        editButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editButtonActionPerformed(evt);
+            }
+        });
 
         deleteButton.setText("Eliminar");
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
@@ -60,72 +92,165 @@ public class JFramMenu extends javax.swing.JFrame {
         });
 
         refreshButton.setText("Actualizar");
+        refreshButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshButtonActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Producto", "Cantidad", "Dirección de Envío", "Cliente"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
+
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblTitulo.setText("Lista de Pedidos");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(221, 221, 221)
+                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(refreshButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(deleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(editButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(addButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(24, 24, 24))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 710, Short.MAX_VALUE)
+                .addGap(22, 22, 22)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(refreshButton))
+                .addGap(14, 14, 14))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(addButton)
-                .addGap(26, 26, 26)
-                .addComponent(editButton)
-                .addGap(31, 31, 31)
-                .addComponent(deleteButton)
-                .addGap(27, 27, 27)
-                .addComponent(refreshButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 21, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(addButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(editButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(refreshButton))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
+        // Recargar los pedidos desde la lista y mostrarlos en la tabla
+        cargarPedidos();
+    }//GEN-LAST:event_refreshButtonActionPerformed
+
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        // TODO add your handling code here:
+        // Recopilar el ID del pedido a eliminar
+        int idPedido = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del pedido a eliminar: "));
+
+        // Verificar si el pedido existe antes de intentar eliminarlo
+        if (!listaPedidos.existeIdPedido(idPedido)) {
+            JOptionPane.showMessageDialog(null, "El pedido con ID " + idPedido + " no existe.");
+        } else {
+            // Eliminar el pedido de la lista
+            listaPedidos.eliminarPedido(idPedido);
+
+            // Recargar la tabla para reflejar los cambios
+            cargarPedidos();
+    }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
+    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
+        // Solicitar al usuario que ingrese el ID del pedido que desea editar
+        int idPedidoEditar = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del pedido que desea editar: "));
+
+        // Verificar si el pedido con ese ID existe en la lista
+        Nodo actual = listaPedidos.getPrimerNodo();
+        boolean pedidoEncontrado = false;
+        while (actual != null) {
+            if (actual.getPedido().getId() == idPedidoEditar) {
+                pedidoEncontrado = true;
+                break;
+            }
+            actual = actual.getSiguiente();
+        }
+
+        if (!pedidoEncontrado) {
+            JOptionPane.showMessageDialog(null, "El pedido con el ID especificado no existe.");
+            return;
+        }
+
+        // Solicitar al usuario la nueva cantidad y la nueva dirección de envío
+        int nuevaCantidad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la nueva cantidad: "));
+        String nuevaDireccionEnvio = JOptionPane.showInputDialog("Ingrese la nueva dirección de envío: ");
+
+        // Llamar al método editarPedido() para actualizar el pedido
+        listaPedidos.editarPedido(idPedidoEditar, nuevaCantidad, nuevaDireccionEnvio);
+
+        // Recargar la tabla para mostrar los cambios
+        cargarPedidos();
+    }//GEN-LAST:event_editButtonActionPerformed
+
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-          // Lógica para el botón "Agregar"
-     
+        // Lógica para el botón "Agregar"
+        // Recopilar información del nuevo pedido
+        int idPedido = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del pedido: "));
+        String nombreProducto = JOptionPane.showInputDialog("Ingrese el nombre del producto: ");
+        String descripcionProducto = JOptionPane.showInputDialog("Ingrese la descripción del producto: ");
+        double precioProducto = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el precio del producto: "));
+        int cantidad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad: "));
+        String direccionEnvio = JOptionPane.showInputDialog("Ingrese la dirección de envío: ");
+        String nombreCliente = JOptionPane.showInputDialog("Ingrese el nombre del cliente: ");
+        String direccionCliente = JOptionPane.showInputDialog("Ingrese la dirección del cliente: ");
+
+        // Verificar si el pedido ya existe
+    if (listaPedidos.existeIdPedido(idPedido)) {
+        JOptionPane.showMessageDialog(null, "El pedido con ID " + idPedido + " ya existe.");
+    } else {
+        // Crear un nuevo objeto Pedido con la información recopilada
+        Producto producto = new Producto(nombreProducto, descripcionProducto, precioProducto);
+        Cliente cliente = new Cliente(nombreCliente, direccionCliente);
+        Pedido nuevoPedido = new Pedido(idPedido, producto, cantidad, direccionEnvio, cliente);
+
+        // Agregar el nuevo pedido a la lista de pedidos
+        listaPedidos.agregarPedido(nuevoPedido);
+
+        // Recargar la tabla para mostrar el nuevo pedido
+        cargarPedidos();
+    }
+
+        // Recargar la tabla para mostrar el nuevo pedido
+        cargarPedidos();
     }//GEN-LAST:event_addButtonActionPerformed
 
     /**
@@ -170,6 +295,7 @@ public class JFramMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblTitulo;
     private javax.swing.JButton refreshButton;
     // End of variables declaration//GEN-END:variables
 }

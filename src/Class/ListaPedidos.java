@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 public class ListaPedidos {
     //Referencia al primer nodo de la lista
 
-    Nodo primerNodo;
+    private  Nodo primerNodo;
 
     public ListaPedidos() {
         this.primerNodo = null;
@@ -85,4 +85,28 @@ public class ListaPedidos {
             actual = actual.getSiguiente();
         }
     }
+    
+      public Nodo getPrimerNodo() {
+        return primerNodo;
+    }
+      public Pedido buscarPedidoPorId(int idPedido) {
+    Nodo actual = primerNodo;
+    while (actual != null) {
+        if (actual.getPedido().getId() == idPedido) {
+            return actual.getPedido();
+        }
+        actual = actual.getSiguiente();
+    }
+    return null; // Retorna null si el pedido no se encuentra en la lista
+}
+      public boolean existeIdPedido(int idPedido) {
+    Nodo actual = primerNodo;
+    while (actual != null) {
+        if (actual.getPedido().getId() == idPedido) {
+            return true;
+        }
+        actual = actual.getSiguiente();
+    }
+    return false; // Retorna false si el ID no se encuentra en la lista
+}
 }
