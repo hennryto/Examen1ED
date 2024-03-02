@@ -363,8 +363,6 @@ public int volverAlMenuPrincipal (){
             // Si se llega a este punto, todos los datos se han ingresado correctamente
             break; // Salir del bucle
         }
-
-// Aquí continuaría tu lógica para agregar el pedido...
         // Verificar si el pedido ya existe
         if (listaPedidos.existeIdPedido(idPedido)) {
             JOptionPane.showMessageDialog(null, "El pedido con ID " + idPedido + " ya existe.");
