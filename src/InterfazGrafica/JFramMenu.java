@@ -18,7 +18,8 @@ public class JFramMenu extends javax.swing.JFrame {
     /**
      * Creates new form JFramMenu
      */
-     private ListaPedidos listaPedidos;
+    private ListaPedidos listaPedidos;
+
     public JFramMenu() {
         initComponents();
         String[] columnas = {"ID", "Nombre Producto", "Cantidad", "Precio", "Dirección Envío", "Nombre Cliente"};
@@ -26,17 +27,26 @@ public class JFramMenu extends javax.swing.JFrame {
 // modelo de la tabla con los nombres de las columnas
         DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
 
+        // Asignar el modelo a la tabla
+        jTable1.setModel(modelo);
+
+        // Ancho de las columnas
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(50); // ID
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(150); // Nombre Producto
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(80); // Cantidad
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(80); // Precio
+        jTable1.getColumnModel().getColumn(4).setPreferredWidth(200); // Dirección Envío
+        jTable1.getColumnModel().getColumn(5).setPreferredWidth(150); // Nombre Cliente   
+
 // Asignacion modelo a la tabla
         jTable1.setModel(modelo);
-        
-        
 
         this.listaPedidos = new ListaPedidos();// Creamos una lista de pedidos vacía al iniciar el JFrame
         cargarPedidos();// Cargamos los pedidos en la tabla al iniciar
     }
-   
-  private void cargarPedidos() {
-    DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+
+    private void cargarPedidos() {
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setRowCount(0); // Limpiamos la tabla
 
         Nodo actual = listaPedidos.getPrimerNodo();
@@ -52,7 +62,8 @@ public class JFramMenu extends javax.swing.JFrame {
             });
             actual = actual.getSiguiente();
         }
-}
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -266,17 +277,94 @@ public class JFramMenu extends javax.swing.JFrame {
         cargarPedidos();
     }//GEN-LAST:event_editButtonActionPerformed
 
-    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        // Lógica para el botón "Agregar"
-        // Recopilar información del nuevo pedido
-        int idPedido = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del pedido: "));
-        String nombreProducto = JOptionPane.showInputDialog("Ingrese el nombre del producto: ");
-        String descripcionProducto = JOptionPane.showInputDialog("Ingrese la descripción del producto: ");
-        int cantidad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad: "));
-        double precioProducto = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el precio del producto: "));        
-        String nombreCliente = JOptionPane.showInputDialog("Ingrese el nombre del cliente: ");
-        String direccionEnvio = JOptionPane.showInputDialog("Ingrese la dirección del cliente: ");
+public int volverAlMenuPrincipal (){
 
+    return EXIT_ON_CLOSE;
+
+}
+    
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+// Variables para almacenar los datos del pedido
+        int idPedido;
+        String nombreProducto;
+        String descripcionProducto;
+        int cantidad;
+        double precioProducto;
+        String nombreCliente;
+        String direccionEnvio;
+
+       
+// Bucle para solicitar los datos del pedido
+        while (true) {
+            // Solicitar y validar el ID del pedido
+            String idPedidoStr = JOptionPane.showInputDialog("Ingrese el ID del pedido: ");
+            if (idPedidoStr == null) {
+                // Si el usuario cancela, volver al menú principal
+                volverAlMenuPrincipal();
+                return; // Salir del método
+            } else if (idPedidoStr.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debe ingresar el ID del pedido.");
+                continue; // Volver a solicitar el ID del pedido
+            }
+            idPedido = Integer.parseInt(idPedidoStr);
+
+            // Solicitar y validar el nombre del producto
+            nombreProducto = JOptionPane.showInputDialog("Ingrese el nombre del producto: ");
+            if (nombreProducto == null || nombreProducto.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debe ingresar el nombre del producto.");
+                continue; // Volver a solicitar el nombre del producto
+            }
+
+            // Solicitar y validar la descripción del producto
+            descripcionProducto = JOptionPane.showInputDialog("Ingrese la descripción del producto: ");
+            if (descripcionProducto == null || descripcionProducto.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debe ingresar la descripción del producto.");
+                continue; // Volver a solicitar la descripción del producto
+            }
+
+            // Solicitar y validar la cantidad
+            String cantidadStr = JOptionPane.showInputDialog("Ingrese la cantidad: ");
+            if (cantidadStr == null) {
+                // Si el usuario cancela, volver al menú principal
+                volverAlMenuPrincipal();
+                return; // Salir del método
+            } else if (cantidadStr.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debe ingresar la cantidad.");
+                continue; // Volver a solicitar la cantidad
+            }
+            cantidad = Integer.parseInt(cantidadStr);
+
+            // Solicitar y validar el precio del producto
+            String precioProductoStr = JOptionPane.showInputDialog("Ingrese el precio del producto: ");
+            if (precioProductoStr == null) {
+                // Si el usuario cancela, volver al menú principal
+                volverAlMenuPrincipal();
+                return; // Salir del método
+            } else if (precioProductoStr.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debe ingresar el precio del producto.");
+                continue; // Volver a solicitar el precio del producto
+            }
+            precioProducto = Double.parseDouble(precioProductoStr);
+
+            // Solicitar y validar el nombre del cliente
+            nombreCliente = JOptionPane.showInputDialog("Ingrese el nombre del cliente: ");
+            if (nombreCliente == null || nombreCliente.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debe ingresar el nombre del cliente.");
+                continue; // Volver a solicitar el nombre del cliente
+            }
+
+            // Solicitar y validar la dirección de envío
+            direccionEnvio = JOptionPane.showInputDialog("Ingrese la dirección del cliente: ");
+            if (direccionEnvio == null || direccionEnvio.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debe ingresar la dirección del cliente.");
+                continue; // Volver a solicitar la dirección de envío
+            }
+
+            // Si se llega a este punto, todos los datos se han ingresado correctamente
+            break; // Salir del bucle
+        }
+
+// Aquí continuaría tu lógica para agregar el pedido...
         // Verificar si el pedido ya existe
         if (listaPedidos.existeIdPedido(idPedido)) {
             JOptionPane.showMessageDialog(null, "El pedido con ID " + idPedido + " ya existe.");
@@ -296,6 +384,7 @@ public class JFramMenu extends javax.swing.JFrame {
         // Recargar la tabla para mostrar el nuevo pedido
         cargarPedidos();
     }//GEN-LAST:event_addButtonActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -346,4 +435,6 @@ public class JFramMenu extends javax.swing.JFrame {
     private javax.swing.JLabel logo;
     private javax.swing.JButton refreshButton;
     // End of variables declaration//GEN-END:variables
+
+
 }
