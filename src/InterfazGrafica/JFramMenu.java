@@ -21,13 +21,15 @@ public class JFramMenu extends javax.swing.JFrame {
      private ListaPedidos listaPedidos;
     public JFramMenu() {
         initComponents();
-        String[] columnas = {"ID", "Nombre Producto", "Cantidad", "Dirección Envío", "Nombre Cliente"};
+        String[] columnas = {"ID", "Nombre Producto", "Cantidad", "Precio", "Dirección Envío", "Nombre Cliente"};
 
 // modelo de la tabla con los nombres de las columnas
         DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
 
 // Asignacion modelo a la tabla
         jTable1.setModel(modelo);
+        
+        
 
         this.listaPedidos = new ListaPedidos();// Creamos una lista de pedidos vacía al iniciar el JFrame
         cargarPedidos();// Cargamos los pedidos en la tabla al iniciar
@@ -44,6 +46,7 @@ public class JFramMenu extends javax.swing.JFrame {
                 pedido.getId(),
                 pedido.getProducto().getNombre(),
                 pedido.getCantidad(),
+                pedido.getProducto().getPrecio(),
                 pedido.getDireccionEnvio(),
                 pedido.getCliente().getNombre()
             });
@@ -83,63 +86,72 @@ public class JFramMenu extends javax.swing.JFrame {
 
         logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo.png"))); // NOI18N
-        jPanel1.add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 160, 290, -1));
+        jPanel1.add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 170, 290, -1));
 
         jlCiudad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/city.png"))); // NOI18N
         jlCiudad.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jPanel1.add(jlCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 0, 354, 600));
+        jPanel1.add(jlCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(614, 0, 270, 600));
 
         jTable1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 501, 166));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 610, 180));
 
         jPanel2.setBackground(new java.awt.Color(136, 212, 234));
 
         lblTitulo.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
-        lblTitulo.setText("Lista de Pedidos");
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitulo.setText("Menú");
 
+        addButton.setBackground(new java.awt.Color(0, 134, 190));
         addButton.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        addButton.setForeground(new java.awt.Color(255, 255, 255));
         addButton.setText("Agregar");
-        addButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        addButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addButtonActionPerformed(evt);
             }
         });
 
+        editButton.setBackground(new java.awt.Color(0, 134, 190));
         editButton.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        editButton.setForeground(new java.awt.Color(255, 255, 255));
         editButton.setText("Editar");
-        editButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        editButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         editButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editButtonActionPerformed(evt);
             }
         });
 
+        deleteButton.setBackground(new java.awt.Color(0, 134, 190));
         deleteButton.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        deleteButton.setForeground(new java.awt.Color(255, 255, 255));
         deleteButton.setText("Eliminar");
-        deleteButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        deleteButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteButtonActionPerformed(evt);
             }
         });
 
+        refreshButton.setBackground(new java.awt.Color(0, 134, 190));
         refreshButton.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        refreshButton.setForeground(new java.awt.Color(255, 255, 255));
         refreshButton.setText("Actualizar");
-        refreshButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        refreshButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         refreshButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 refreshButtonActionPerformed(evt);
@@ -153,9 +165,6 @@ public class JFramMenu extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(54, 54, 54)
                         .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -163,25 +172,29 @@ public class JFramMenu extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(86, Short.MAX_VALUE))
+                        .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(176, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addButton)
-                    .addComponent(editButton)
-                    .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(addButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(editButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(deleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                    .addComponent(refreshButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 530, 70));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 620, 80));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/favicon.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 80, 60));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 70, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -259,11 +272,10 @@ public class JFramMenu extends javax.swing.JFrame {
         int idPedido = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del pedido: "));
         String nombreProducto = JOptionPane.showInputDialog("Ingrese el nombre del producto: ");
         String descripcionProducto = JOptionPane.showInputDialog("Ingrese la descripción del producto: ");
-        double precioProducto = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el precio del producto: "));
         int cantidad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad: "));
-        String direccionEnvio = JOptionPane.showInputDialog("Ingrese la dirección de envío: ");
+        double precioProducto = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el precio del producto: "));        
         String nombreCliente = JOptionPane.showInputDialog("Ingrese el nombre del cliente: ");
-        String direccionCliente = JOptionPane.showInputDialog("Ingrese la dirección del cliente: ");
+        String direccionEnvio = JOptionPane.showInputDialog("Ingrese la dirección del cliente: ");
 
         // Verificar si el pedido ya existe
         if (listaPedidos.existeIdPedido(idPedido)) {
@@ -271,7 +283,7 @@ public class JFramMenu extends javax.swing.JFrame {
         } else {
             // Crear un nuevo objeto Pedido con la información recopilada
             Producto producto = new Producto(nombreProducto, descripcionProducto, precioProducto);
-            Cliente cliente = new Cliente(nombreCliente, direccionCliente);
+            Cliente cliente = new Cliente(nombreCliente, direccionEnvio);
             Pedido nuevoPedido = new Pedido(idPedido, producto, cantidad, direccionEnvio, cliente);
 
             // Agregar el nuevo pedido a la lista de pedidos

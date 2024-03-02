@@ -60,18 +60,17 @@ public class Menu {
         int idPedido = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del pedido: "));
         String nombreProducto = JOptionPane.showInputDialog("Ingrese el nombre del producto: ");
         String descripcionProducto = JOptionPane.showInputDialog("Ingrese la descripción del producto: ");
-        double precioProducto = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el precio del producto: "));
         int cantidad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad: "));
-        String direccionEnvio = JOptionPane.showInputDialog("Ingrese la dirección de envío: ");
+        double precioProducto = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el precio del producto: "));        
         String nombreCliente = JOptionPane.showInputDialog("Ingrese el nombre del cliente: ");
-        String direccionCliente = JOptionPane.showInputDialog("Ingrese la dirección del cliente: ");
+        String direccionEnvio = JOptionPane.showInputDialog("Ingrese la dirección del cliente: ");
 
         // Crear un nuevo objeto Producto y Cliente
         Producto producto = new Producto(nombreProducto, descripcionProducto, precioProducto);
-        Cliente cliente = new Cliente(nombreCliente, direccionCliente);
+        Cliente cliente = new Cliente(nombreCliente, direccionEnvio);
 
         // Crear un nuevo objeto Pedido
-        Pedido nuevoPedido = new Pedido(idPedido, producto, cantidad, direccionEnvio, cliente);
+        Pedido nuevoPedido = new Pedido(idPedido, producto, cantidad,direccionEnvio, cliente);
 
         // Agregar el nuevo pedido a la lista de pedidos
         listaPedidos.agregarPedido(nuevoPedido);
