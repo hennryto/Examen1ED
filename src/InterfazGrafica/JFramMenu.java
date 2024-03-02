@@ -89,6 +89,7 @@ public class JFramMenu extends javax.swing.JFrame {
         jlCiudad.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jPanel1.add(jlCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 0, 354, 600));
 
+        jTable1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
